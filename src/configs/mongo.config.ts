@@ -8,9 +8,6 @@ export const getMongoConfig = async (configService: ConfigService): Promise<Type
 	};
 };
 
-
-
-
 const getMongoString = (configService: ConfigService): string => {
 	// mongo connection string
 	// mongodb://[username:password@]host1[:port1][,...hostN[:portN]][/[defaultauthdb][?options]]
@@ -22,8 +19,8 @@ const getMongoString = (configService: ConfigService): string => {
 			configService.get('MONGO_AUTHDATABASE');
 };
 
-
 const getMongoOptions = () => ({
-	//useCreateIndex: true,
+	//useCreateIndex: true, // deprecated
+	useNewUrlParser: true,
 	useUnifiedTopology:true
 });
