@@ -9,6 +9,7 @@ export class TopPageModel {
 	_id: string;
 	firstLevelCategory: TopLevelCategory;
 	secondCategory: string;
+	alias: string;
 	title: string;
 	category: string;
 	hh?: {
