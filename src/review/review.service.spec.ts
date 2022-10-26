@@ -6,9 +6,10 @@ import { ReviewService } from './review.service';
 describe('ReviewService', () => {
 	let service: ReviewService;
 
-	const exec = { exec: jest.fn() }; // jest.fn allow emuleate a function
-	const reviewRepositoryFactory = () => ({ // return object with find function
-		find: () => exec // findByProductId
+	const exec = { exec: jest.fn() }; // jest.fn allow emulate a function
+	const reviewRepositoryFactory = () => ({ // return object with contains find function, 
+		// that return review model, that uses chaining pattern, and in the end need to use exec function
+		find: () => exec // -> findByProductId method 
 	});
 
 	beforeEach(async () => {
@@ -16,8 +17,8 @@ describe('ReviewService', () => {
 		providers: [
 			ReviewService,
 			{ 
-				useFactory: reviewRepositoryFactory, 
-				provide: getModelToken('ReviewModel')
+				useFactory: reviewRepositoryFactory, // mockmodel 
+				provide: getModelToken('ReviewModel') // Model token from app inject new fabric
 			}
 		],
 		}).compile();
