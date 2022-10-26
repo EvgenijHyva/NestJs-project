@@ -41,6 +41,19 @@ describe('Review module (e2e)', () => {
 		});
 	});
 
+	it('/review/create (POST) - fail rating validation', async () => {
+		return request(app.getHttpServer())
+			.post('/review/create') 
+			.send({ 
+				...testDto, 
+				rating: 0 // between 1 and 5
+			}) 
+			.expect(400)
+			.then(({ body }: request.Response) => {
+				console.log(body);
+		});
+	});
+
 	it('/review/byProduct/:productId (GET) - success ', async () => {
 		return request(app.getHttpServer())
 			.get('/review/byProduct/' + productId)
