@@ -26,13 +26,13 @@ describe('ReviewService', () => {
 		service = module.get<ReviewService>(ReviewService);
 	});
 
-	it('should be defined', () => {
+	it('define service', () => {
 		expect(service).toBeDefined();
 	});
 
 	it('findByProductId working', async () => {
-		const id = new Types.ObjectId().toHexString();
-		reviewRepositoryFactory().find().exec.mockReturnValue([{ productId: id}]);
+		const id = new Types.ObjectId().toHexString(); // uses same id pattern as in prod
+		reviewRepositoryFactory().find().exec.mockReturnValueOnce([{ productId: id}]); //exec call should be mocked by jest
 		const res = await service.findByProductId(id);
 		expect(res[0].productId).toBe(id);
 	});
