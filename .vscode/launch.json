@@ -11,4 +11,6 @@
 			"port": 9229
 		}
 	]
+	// запуск дебагера
+	// run -> start debugging or F5
 }
