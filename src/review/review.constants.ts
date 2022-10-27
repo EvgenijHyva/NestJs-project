@@ -1,1 +1,1 @@
-export const REVIEW_NOT_FOUND = (message: string) => `review with (id:${message}) not found`;
+export const REVIEW_NOT_FOUND = (message: string):string => `review with (id:${message}) not found`;

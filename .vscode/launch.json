@@ -13,4 +13,5 @@
 	]
 	// запуск дебагера
 	// run -> start debugging or F5
+	// debug in chrome -> chrome://inspect/#devices
 }
