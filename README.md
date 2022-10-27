@@ -71,3 +71,21 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+# Docktor Clinic (Memory leaks)
+
+### Required packages
+
+```bash
+$ npm i -g autocannon # autocannon sends a lot of request to the target
+$ npm i -g clinic # clinic diagnoses performance issues
+```
+
+### After package installing
+
+```bash
+# First create app instance into dist folders
+$ npm run build
+#
+$ clinic doctor --on-port "autocannon localhost:$PORT/api/<app entry point>/" -- node dist/main.js
+```
