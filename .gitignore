@@ -39,3 +39,6 @@ lerna-debug.log*
 
 # db 
 mongo-data*
+
+# c.
+.clinic
