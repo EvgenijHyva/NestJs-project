@@ -5,6 +5,7 @@ import { AppModule } from '../src/app.module';
 import { CreateReviewDto } from 'src/review/dto/create-review.dto';
 import { Types, disconnect } from 'mongoose';
 import { REVIEW_NOT_FOUND } from '../src/review/review.constants';
+import { AuthDto } from 'src/auth/dto/auth.dto';
 
 
 const productId = new Types.ObjectId().toHexString();
@@ -16,9 +17,15 @@ const testDto: CreateReviewDto = {
 	productId
 };
 
+const loginDto: AuthDto = {
+	'login': 'User1@user.com',
+	'password': 'pass'
+};
+
 describe('Review module (e2e)', () => {
 	let app: INestApplication; // app init
 	let createdId: string;
+	let token: string;
 
 	beforeEach(async () => {
 		const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -28,6 +35,11 @@ describe('Review module (e2e)', () => {
 	app = moduleFixture.createNestApplication();
 		await app.init();
 		app.useLogger(new Logger());
+		
+	const { body } = await request(app.getHttpServer())
+		.post('/auth/login')
+		.send(loginDto);
+	token = body.access_token;
 	});
 
 	it('/review/create (POST) - success',async () => {
@@ -50,6 +62,7 @@ describe('Review module (e2e)', () => {
 			}) 
 			.expect(400)
 			.then(({ body }: request.Response) => {
+				// tslint:disable-next-line: no-console
 				console.log(body);
 		});
 	});
@@ -57,6 +70,7 @@ describe('Review module (e2e)', () => {
 	it('/review/byProduct/:productId (GET) - success ', async () => {
 		return request(app.getHttpServer())
 			.get('/review/byProduct/' + productId)
+			.set('Authorization', 'Bearer ' + token)
 			.expect(200)
 			.then(({ body }: request.Response) => {
 				expect(body.length).toBeGreaterThanOrEqual(1);
@@ -66,6 +80,7 @@ describe('Review module (e2e)', () => {
 	it('/review/byProduct/:productId (GET) - fail ', async () => {
 		return request(app.getHttpServer())
 			.get('/review/byProduct/' + new Types.ObjectId().toHexString()) // some random id
+			.set('Authorization', 'Bearer ' + token)
 			.expect(200)
 			.then(({ body }: request.Response) => {
 				expect(body.length).toBe(0);
@@ -75,6 +90,7 @@ describe('Review module (e2e)', () => {
 	it('/review/:id (DELETE) - success', async () => {
 		return request(app.getHttpServer())
 			.delete('/review/' + createdId)
+			.set('Authorization', 'Bearer ' + token)
 			.expect(200);
 	});
 
@@ -82,10 +98,18 @@ describe('Review module (e2e)', () => {
 		const randomId: string = new Types.ObjectId().toHexString();
 		return request(app.getHttpServer())
 			.delete('/review/' + randomId)
+			.set('Authorization', 'Bearer ' + token)
 			.expect(404, {
 				statusCode: 404,
 				message: REVIEW_NOT_FOUND(randomId)
 			});
+	});	
+
+	it('/review/:id (DELETE) - fail (Unauthorized)', async () => {
+		const randomId: string = new Types.ObjectId().toHexString();
+		return request(app.getHttpServer())
+			.delete('/review/' + randomId)
+			.expect(401);
 	});	
 
 	afterAll(() => {
