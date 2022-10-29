@@ -17,17 +17,15 @@ export class ProductModel {
 	@prop()
 	price: number;
 	@prop()
-	oldPrice: number;
+	oldPrice?: number;
 	@prop()
 	credit: number;
-	@prop()
-	calculatedRating: number;
 	@prop()
 	description: string;
 	@prop()
 	advantages: string;
 	@prop()
-	desAdvantages: string;
+	disAdvantages: string;
 	@prop({ type: () => [String] })
 	categories: string[];
 	@prop({ type: () => [String] })
