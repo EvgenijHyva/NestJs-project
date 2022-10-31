@@ -21,15 +21,26 @@ export class TopPageService {
 	}
 
 	async findByCategory(firstLevelCategory: TopLevelCategory) {
-		return this.topPageModel.find({ firstLevelCategory }, { 
-			// second param: fields array 
-			firstLevelCategory: 1,
-			alias: 1,
-			secondCategory: 1,
-			title: 1,
-			tagsTitle: 1,
-			tags: 1
-		}).exec();
+		return this.topPageModel.aggregate([
+			{
+				$match: {
+					firstLevelCategory
+				}
+			},
+			{
+				$group: {
+					_id: {
+						secondCategory: '$secondCategory',
+					},
+					pages: {
+						$push: {
+							alias: '$alias',
+							title: '$title'
+						}
+					}
+				}
+			}
+		]);
 	}
 
 	async deleteById(id: string) {
