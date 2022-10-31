@@ -1,0 +1,1 @@
+export const TOP_PAGE_NOT_FOUND_ERROR = (id: string) => `Page with id:${id} not found :(`;

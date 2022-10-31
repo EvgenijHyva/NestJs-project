@@ -20,7 +20,9 @@ export class HhData {
 }
 
 export class TopPageAdvantage {
+	@prop()
 	title: string;
+	@prop()
 	description: string;
 }
 
