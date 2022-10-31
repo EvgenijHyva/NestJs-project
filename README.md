@@ -89,3 +89,11 @@ $ npm run build
 #
 $ clinic doctor --on-port "autocannon localhost:$PORT/api/<app entry point>/" -- node dist/main.js
 ```
+
+# Dockerizaton
+
+### App can be run on 
+```bash
+# After creating .env file on host, need to define MONGO_HOST=<host ip address>
+$ docker-compose up -d
+```
