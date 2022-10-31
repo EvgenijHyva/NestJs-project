@@ -64,6 +64,13 @@ export class TopPageController {
 		return this.topPageService.findByCategory(dto.firstLevelCategory);
 	}
 
+	@UsePipes(new ValidationPipe())
+	@HttpCode(200)
+	@Post('findHh')
+	async findWithHh(@Body() dto: FindTopPageDto){
+		return this.topPageService.findByCategoryChainable(dto.firstLevelCategory);
+	}
+
 	@Get('textSearch/:text')
 	// tslint:disable-next-line: no-shadowed-variable
 	async textSearch(@Param('text') text: string) {

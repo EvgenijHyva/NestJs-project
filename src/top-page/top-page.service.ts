@@ -40,7 +40,26 @@ export class TopPageService {
 					}
 				}
 			}
-		]);
+		]).exec();
+	}
+	async findByCategoryChainable(firstLevelCategory: TopLevelCategory){
+		return this.topPageModel.aggregate()
+			.match({
+				firstLevelCategory
+			})
+			.group({
+				_id: {
+					secondCategory: '$secondCategory',
+					category: '$category'
+				},
+				pages: {
+					$push: {
+						hh: '$hh',
+						seo: '$seoText'
+					}
+				}
+			})
+			.exec();
 	}
 
 	async deleteById(id: string) {
