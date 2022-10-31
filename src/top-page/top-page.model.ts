@@ -27,8 +27,7 @@ export class TopPageAdvantage {
 }
 
 export interface TopPageModel extends Base { } //interface required to export, otherwise it cant merge this declarations
-@index({ '$**': 'text' }) // for all fields and nested. For small projects. 
-// { title: 'text', seoText: 'text' } for defining search fields in mongo
+@index({ title: 'text', seoText: 'text' }) //  for defining search fields in mongo
 export class TopPageModel extends TimeStamps {
 	@prop({ enum: TopLevelCategory, type: () => Number }) // enum uses numbers, it's good to use type: Number 
 	firstLevelCategory: TopLevelCategory;
