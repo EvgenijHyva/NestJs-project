@@ -1,5 +1,6 @@
 import { Body, Controller, Delete, Get, HttpCode, NotFoundException, Param, 
 	Patch, Post, UseGuards, UsePipes, ValidationPipe } from '@nestjs/common';
+import { text } from 'node:stream/consumers';
 import { JwtAuthGuard } from 'src/auth/guards/jwt.guard';
 import { IdValidationPipe } from '../pipes/id-validation.pipe';
 import { CreateTopPageDto } from './dto/create-top-page.dto';
@@ -61,5 +62,11 @@ export class TopPageController {
 	@Post('find')
 	async find(@Body() dto: FindTopPageDto){
 		return this.topPageService.findByCategory(dto.firstLevelCategory);
+	}
+
+	@Get('textSearch/:text')
+	// tslint:disable-next-line: no-shadowed-variable
+	async textSearch(@Param('text') text: string) {
+		return this.topPageService.findByText(text);
 	}
 }
