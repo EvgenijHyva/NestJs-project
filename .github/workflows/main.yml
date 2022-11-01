@@ -15,6 +15,6 @@ jobs:
           registry: docker.pkg.github.com
           name: docker.pkg.github.com/EvgenijHyva/NestJs-project/top-api
           username: ${{ secrets.DOCKER_USERNAME }}
-          password: ${{ secrets.DOCKER_PASSWORD }}
-          repo-token: ${{ secrets.NESTJS_GITHUB_TOKEN}}
+          password: ${{ secrets.NESTJS_GITHUB_TOKEN }}
           tags: "develop"
+  
