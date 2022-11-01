@@ -42,3 +42,6 @@ mongo-data*
 
 # c.
 .clinic
+
+# Files 
+/uploads/
