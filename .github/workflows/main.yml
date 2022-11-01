@@ -12,9 +12,9 @@ jobs:
       - name: Publish to registery
         uses: elgohr/Publish-Docker-Github-Action@v4
         with:
-          registry: docker.pkg.github.com
-          name: docker.pkg.github.com/EvgenijHyva/NestJs-project/top-api
+          registry: ghcr.io
+          name: EvgenijHyva/NestJs-project/top-api
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.NESTJS_GITHUB_TOKEN }}
-          tags: "develop"
+          tags: "development"
   
