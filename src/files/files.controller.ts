@@ -7,7 +7,7 @@ import { FilesService } from './files.service';
 @Controller('files')
 export class FilesController {
 	
-	constructor(private readonly fileService: FilesService)
+	constructor(private readonly fileService: FilesService) {}
 
 	@Post('upload')
 	@HttpCode(200)
