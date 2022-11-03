@@ -20,7 +20,9 @@ import { SitemapModule } from './sitemap/sitemap.module';
 			imports: [ConfigModule],
 			inject: [ConfigService],
 			useFactory: getMongoConfig
-		}), FilesModule, SitemapModule
+		}), 
+		FilesModule, 
+		SitemapModule
 	],
 })
 export class AppModule {}
